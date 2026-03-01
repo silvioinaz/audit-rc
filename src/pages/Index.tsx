@@ -4,8 +4,10 @@ import ProspectInfoTab from "@/components/audit/ProspectInfoTab";
 import PillarTab from "@/components/audit/PillarTab";
 import ResultsTab from "@/components/audit/ResultsTab";
 import { pillars } from "@/lib/auditData";
+import { generateAuditPDF } from "@/lib/generateReport";
 import { Button } from "@/components/ui/button";
 import { FileText, RotateCcw } from "lucide-react";
+import { useState } from "react";
 
 const Index = () => {
   const {
@@ -23,6 +25,16 @@ const Index = () => {
   } = useAuditState();
 
   const activePillar = pillars.find((p) => p.id === activeTab);
+  const [generating, setGenerating] = useState(false);
+
+  const handleGenerateReport = async () => {
+    setGenerating(true);
+    try {
+      await generateAuditPDF({ prospectInfo, answers, notes, getPillarScore, getTotalScore });
+    } finally {
+      setGenerating(false);
+    }
+  };
 
   return (
     <div className="flex min-h-screen">
@@ -40,6 +52,16 @@ const Index = () => {
             Saved
           </div>
           <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleGenerateReport}
+              disabled={generating}
+              className="gap-1.5"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              {generating ? "Generating..." : "Generate Report"}
+            </Button>
             <Button
               variant="outline"
               size="sm"

@@ -155,6 +155,28 @@ export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo
           })}
         </div>
       </div>
+
+      {/* CTA - Book a Call */}
+      <div className="bg-sidebar border border-primary/30 rounded-lg p-6 text-center space-y-3">
+        <h3 className="text-lg font-bold text-primary">Ready to Close the Revenue Gap?</h3>
+        <p className="text-sm text-muted-foreground">
+          Book a free strategy call to see how AI can recover your lost revenue.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          <a
+            href="https://api.leadconnectorhq.com/widget/booking/vnj6NoD40AAkqQSZPae5"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-md text-sm font-semibold hover:opacity-90 transition-opacity"
+          >
+            📅 Book a Strategy Call
+          </a>
+        </div>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-muted-foreground pt-1">
+          <a href="tel:4804480792" className="hover:text-primary transition-colors">📞 480-448-0792</a>
+          <a href="mailto:Silvio@RevenueCapture.ai" className="hover:text-primary transition-colors">✉️ Silvio@RevenueCapture.ai</a>
+        </div>
+      </div>
     </div>
   );
 }

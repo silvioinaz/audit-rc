@@ -193,13 +193,33 @@ export async function generateAuditPDF(data: ReportData) {
   doc.setTextColor(234, 179, 48);
   doc.text(`$${Math.round(totalGap).toLocaleString()}`, margin + contentW - 4, y, { align: "right" });
 
-  // Footer on last page
+  // CTA / Next Steps
+  y += 10;
+  checkPage(40);
+  doc.setFillColor(23, 30, 46);
+  doc.roundedRect(margin, y, contentW, 32, 3, 3, "F");
+  doc.setTextColor(234, 179, 48);
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "bold");
+  doc.text("Ready to Close the Revenue Gap?", margin + 6, y + 9);
+  doc.setFontSize(9);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(220, 225, 235);
+  doc.text("Book a free strategy call to see how AI can recover your lost revenue.", margin + 6, y + 16);
+  doc.setTextColor(200, 210, 225);
+  doc.setFontSize(8);
+  doc.text("Phone: 480-448-0792  |  Email: Silvio@RevenueCapture.ai", margin + 6, y + 22);
+  doc.setTextColor(130, 180, 255);
+  doc.text("Book Online: https://api.leadconnectorhq.com/widget/booking/vnj6NoD40AAkqQSZPae5", margin + 6, y + 27);
+  y += 38;
+
+  // Footer on every page
   const pageCount = doc.getNumberOfPages();
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
     doc.setFontSize(7);
     doc.setTextColor(160, 160, 170);
-    doc.text(`RevenueCapture.ai — Confidential`, margin, 290);
+    doc.text(`RevenueCapture.ai  |  480-448-0792  |  Silvio@RevenueCapture.ai`, margin, 290);
     doc.text(`Page ${i} of ${pageCount}`, W - margin, 290, { align: "right" });
   }
 

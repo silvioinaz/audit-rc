@@ -28,18 +28,25 @@ export default function ProspectInfoTab({ info, onChange }: Props) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Field label="Business Name">
+          <Field label="First Name">
             <Input
-              placeholder="e.g. ABC Plumbing"
-              value={info.businessName}
-              onChange={(e) => onChange({ businessName: e.target.value })}
+              placeholder="e.g. John"
+              value={info.firstName}
+              onChange={(e) => onChange({ firstName: e.target.value })}
             />
           </Field>
-          <Field label="Contact Name">
+          <Field label="Last Name">
             <Input
-              placeholder="e.g. John Smith"
-              value={info.contactName}
-              onChange={(e) => onChange({ contactName: e.target.value })}
+              placeholder="e.g. Smith"
+              value={info.lastName}
+              onChange={(e) => onChange({ lastName: e.target.value })}
+            />
+          </Field>
+          <Field label="Company Name">
+            <Input
+              placeholder="e.g. ABC Plumbing"
+              value={info.companyName}
+              onChange={(e) => onChange({ companyName: e.target.value })}
             />
           </Field>
           <Field label="Phone">

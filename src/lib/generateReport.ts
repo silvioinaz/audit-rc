@@ -47,8 +47,8 @@ export async function generateAuditPDF(data: ReportData) {
   doc.setFont("helvetica", "normal");
 
   const infoRows = [
-    ["Business", prospectInfo.businessName],
-    ["Contact", prospectInfo.contactName],
+    ["Company", prospectInfo.companyName],
+    ["Contact", `${prospectInfo.firstName} ${prospectInfo.lastName}`.trim()],
     ["Phone", prospectInfo.phone],
     ["Email", prospectInfo.email],
     ["Website", prospectInfo.website],
@@ -223,8 +223,8 @@ export async function generateAuditPDF(data: ReportData) {
     doc.text(`Page ${i} of ${pageCount}`, W - margin, 290, { align: "right" });
   }
 
-  const filename = prospectInfo.businessName
-    ? `RevenueCapture_Audit_${prospectInfo.businessName.replace(/\s+/g, "_")}.pdf`
+  const filename = prospectInfo.companyName
+    ? `RevenueCapture_Audit_${prospectInfo.companyName.replace(/\s+/g, "_")}.pdf`
     : "RevenueCapture_Audit_Report.pdf";
 
   doc.save(filename);

@@ -11,8 +11,9 @@ type AuditState = {
 };
 
 const defaultProspect: ProspectInfo = {
-  businessName: "",
-  contactName: "",
+  firstName: "",
+  lastName: "",
+  companyName: "",
   phone: "",
   email: "",
   website: "",

@@ -29,8 +29,9 @@ export type Pillar = {
 };
 
 export type ProspectInfo = {
-  businessName: string;
-  contactName: string;
+  firstName: string;
+  lastName: string;
+  companyName: string;
   phone: string;
   email: string;
   website: string;

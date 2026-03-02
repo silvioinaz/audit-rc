@@ -1,13 +1,23 @@
 import { pillars, getScoreLabel, getScoreColor, getScoreBgColor } from "@/lib/auditData";
 import { ProspectInfo } from "@/lib/auditData";
+import { Button } from "@/components/ui/button";
+import { Send } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 type Props = {
   getPillarScore: (id: string) => number;
   getTotalScore: () => number;
   prospectInfo: ProspectInfo;
+  answers: Record<string, number | null>;
+  notes: Record<string, string>;
 };
 
-export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo }: Props) {
+const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/ERB3QwqNBa5JjalEmjoc/webhook-trigger/f57ebc0e-4edb-423d-83ff-1c89533e56cf";
+
+export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo, answers, notes }: Props) {
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
   const totalScore = getTotalScore();
   const maxTotal = pillars.reduce((s, p) => s + p.maxScore, 0);
   const avgScore = pillars.length > 0 ? Math.round(totalScore / pillars.length) : 0;
@@ -35,6 +45,40 @@ export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo
   const totalGap = Object.values(gaps).reduce((s, v) => s + v, 0);
 
   const sorted = [...pillars].sort((a, b) => getPillarScore(a.id) - getPillarScore(b.id));
+
+  const handleSendToGHL = async () => {
+    setSending(true);
+    try {
+      const pillarScores: Record<string, number> = {};
+      pillars.forEach((p) => { pillarScores[p.id] = getPillarScore(p.id); });
+
+      const payload = {
+        ...prospectInfo,
+        totalScore,
+        maxTotal,
+        avgScore,
+        totalRevenueGap: Math.round(totalGap),
+        pillarScores,
+        gaps: Object.fromEntries(Object.entries(gaps).map(([k, v]) => [k, Math.round(v)])),
+        answers,
+        notes,
+      };
+
+      const res = await fetch(GHL_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) throw new Error("Webhook failed");
+      setSent(true);
+      toast.success("Prospect data sent to GHL successfully!");
+    } catch (err) {
+      toast.error("Failed to send data to GHL. Please try again.");
+    } finally {
+      setSending(false);
+    }
+  };
 
   return (
     <div className="space-y-8">
@@ -154,6 +198,21 @@ export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo
             );
           })}
         </div>
+      </div>
+
+      {/* Send to GHL */}
+      <div className="bg-card border border-border rounded-lg p-6 text-center space-y-3">
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+          Sync to CRM
+        </h3>
+        <Button
+          onClick={handleSendToGHL}
+          disabled={sending || sent}
+          className="gap-2"
+        >
+          <Send className="w-4 h-4" />
+          {sent ? "Sent to GHL ✓" : sending ? "Sending..." : "Send to GHL"}
+        </Button>
       </div>
 
       {/* CTA - Book a Call */}

@@ -96,6 +96,8 @@ const Index = () => {
               getPillarScore={getPillarScore}
               getTotalScore={getTotalScore}
               prospectInfo={prospectInfo}
+              answers={answers}
+              notes={notes}
             />
           )}
         </main>

@@ -50,15 +50,10 @@ export type ProspectInfo = {
 
 export const industries = [
   "Home Services (HVAC, Plumbing, Roofing, Garage Door, Home Maintenance, Home Inspection)",
+  "Trades & Exterior (General Contractor, Landscaping, Painting, Fencing, Windows & Doors, Flooring)",
   "Healthcare & Wellness (Dental, Urgent Care, Clinics, Physical Therapy, Pilates, Body Work)",
   "Real Estate & Property Management",
   "Professional Services (Law, Accounting)",
-  "General Contractor",
-  "Landscaping",
-  "Painting",
-  "Windows & Doors",
-  "Flooring",
-  "Fencing",
   "Other",
 ];
 

@@ -60,7 +60,17 @@ export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo
     setSending(true);
     try {
       const pillarScores: Record<string, number> = {};
-      pillars.forEach((p) => { pillarScores[p.id] = getPillarScore(p.id); });
+      const pillarTags: string[] = [];
+      pillars.forEach((p) => {
+        const score = getPillarScore(p.id);
+        pillarScores[p.id] = score;
+        const pct = (score / p.maxScore) * 100;
+        const tier = pct <= 25 ? "critical" : pct <= 50 ? "poor" : pct <= 75 ? "fair" : "good";
+        pillarTags.push(`${p.id}-${tier}`);
+      });
+
+      const overallPct = (totalScore / maxTotal) * 100;
+      const overallTier = overallPct <= 25 ? "critical" : overallPct <= 50 ? "poor" : overallPct <= 75 ? "fair" : "good";
 
       const payload = {
         first_name: prospectInfo.firstName,
@@ -83,6 +93,8 @@ export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo
         total_score: totalScore,
         max_total: maxTotal,
         avg_score: avgScore,
+        overall_tier: `audit-${overallTier}`,
+        pillar_tags: pillarTags,
         total_revenue_gap: Math.round(totalGap),
         pillar_scores: pillarScores,
         gaps: Object.fromEntries(Object.entries(gaps).map(([k, v]) => [k, Math.round(v)])),

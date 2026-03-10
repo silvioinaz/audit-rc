@@ -49,8 +49,8 @@ export type ProspectInfo = {
 };
 
 export const industries = [
-  "Home Services (HVAC, Plumbing, Roofing)",
-  "Healthcare (Dental, Urgent Care, Clinics)",
+  "Home Services (HVAC, Plumbing, Roofing, Garage Door, Home Maintenance, Home Inspection)",
+  "Healthcare & Wellness (Dental, Urgent Care, Clinics, Physical Therapy, Pilates, Body Work)",
   "Real Estate & Property Management",
   "Professional Services (Law, Accounting)",
   "General Contractor",

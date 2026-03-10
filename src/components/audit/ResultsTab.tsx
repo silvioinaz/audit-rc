@@ -1,6 +1,7 @@
 import { pillars, getScoreLabel, getScoreColor, getScoreBgColor } from "@/lib/auditData";
 import { ProspectInfo } from "@/lib/auditData";
 import { Button } from "@/components/ui/button";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Send } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -221,14 +222,26 @@ export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo
         <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
           Sync to CRM
         </h3>
-        <Button
-          onClick={handleSendToGHL}
-          disabled={sending || sent}
-          className="gap-2"
-        >
-          <Send className="w-4 h-4" />
-          {sent ? "Sent to GHL ✓" : sending ? "Sending..." : "Send to GHL"}
-        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button disabled={sending || sent} className="gap-2">
+              <Send className="w-4 h-4" />
+              {sent ? "Sent to GHL ✓" : sending ? "Sending..." : "Send to GHL"}
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Send audit data to GHL?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This will send {prospectInfo.firstName} {prospectInfo.lastName}'s audit scores, revenue gap analysis, and all notes to your GHL CRM via webhook.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleSendToGHL}>Send to GHL</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
 
       {/* CTA - Book a Call */}

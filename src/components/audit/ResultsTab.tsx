@@ -19,6 +19,15 @@ const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/ERB3QwqNBa5J
 export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo, answers, notes }: Props) {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const prevDataRef = useRef(JSON.stringify({ prospectInfo, answers, notes }));
+
+  useEffect(() => {
+    const current = JSON.stringify({ prospectInfo, answers, notes });
+    if (sent && current !== prevDataRef.current) {
+      setSent(false);
+    }
+    prevDataRef.current = current;
+  }, [prospectInfo, answers, notes, sent]);
   const totalScore = getTotalScore();
   const maxTotal = pillars.reduce((s, p) => s + p.maxScore, 0);
   const avgScore = pillars.length > 0 ? Math.round(totalScore / pillars.length) : 0;

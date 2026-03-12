@@ -70,7 +70,7 @@ export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo
       });
 
       const overallPct = (totalScore / maxTotal) * 100;
-      const overallTier = overallPct <= 25 ? "critical" : overallPct <= 50 ? "poor" : overallPct <= 75 ? "fair" : "good";
+      const overallTier = overallPct <= 25 ? "Critical" : overallPct <= 50 ? "Poor" : overallPct <= 75 ? "Fair" : "Good";
 
       const payload = {
         first_name: prospectInfo.firstName,
@@ -93,7 +93,7 @@ export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo
         total_score: totalScore,
         max_total: maxTotal,
         avg_score: avgScore,
-        overall_tier: `audit-${overallTier}`,
+        overallTier,
         pillar_tags: pillarTags,
         total_revenue_gap: Math.round(totalGap),
         pillar_scores: pillarScores,

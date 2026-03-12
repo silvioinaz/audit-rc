@@ -93,7 +93,7 @@ export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo
         total_score: totalScore,
         max_total: maxTotal,
         avg_score: avgScore,
-        overall_tier: `audit-${overallTier}`,
+        overallTier,
         pillar_tags: pillarTags,
         total_revenue_gap: Math.round(totalGap),
         pillar_scores: pillarScores,

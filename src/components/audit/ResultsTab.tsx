@@ -56,6 +56,9 @@ export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo
 
   const sorted = [...pillars].sort((a, b) => getPillarScore(a.id) - getPillarScore(b.id));
 
+  const formatCurrency = (n: number) =>
+    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2 }).format(n);
+
   const handleSendToGHL = async () => {
     setSending(true);
     try {
@@ -71,6 +74,14 @@ export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo
 
       const overallPct = (totalScore / maxTotal) * 100;
       const overallTier = overallPct <= 25 ? "Critical" : overallPct <= 50 ? "Poor" : overallPct <= 75 ? "Fair" : "Good";
+
+      const allNotes = [
+        prospectInfo.preCallNotes ? `Pre-Call Notes:\n${prospectInfo.preCallNotes}` : null,
+        notes["voice-ai"] ? `Voice AI Notes:\n${notes["voice-ai"]}` : null,
+        notes["conversational-ai"] ? `Conversational AI Notes:\n${notes["conversational-ai"]}` : null,
+        notes["reputation"] ? `Reputation Notes:\n${notes["reputation"]}` : null,
+        notes["database"] ? `Database Notes:\n${notes["database"]}` : null,
+      ].filter(Boolean).join("\n\n");
 
       const payload = {
         first_name: prospectInfo.firstName,
@@ -95,11 +106,12 @@ export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo
         avg_score: avgScore,
         overallTier,
         pillar_tags: pillarTags,
-        total_revenue_gap: Math.round(totalGap),
+        total_revenue_gap: formatCurrency(totalGap),
         pillar_scores: pillarScores,
-        gaps: Object.fromEntries(Object.entries(gaps).map(([k, v]) => [k, Math.round(v)])),
+        gaps: Object.fromEntries(Object.entries(gaps).map(([k, v]) => [k, formatCurrency(v)])),
         answers,
         notes,
+        allNotes,
       };
 
       const res = await fetch(GHL_WEBHOOK_URL, {

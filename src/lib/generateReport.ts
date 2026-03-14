@@ -159,10 +159,11 @@ export async function generateAuditPDF(data: ReportData) {
   doc.text("Estimated Annual Revenue Gap", margin, y);
   y += 7;
 
-  const revenue = parseFloat(prospectInfo.monthlyRevenue) || 0;
-  const avgJob = parseFloat(prospectInfo.avgJobValue) || 0;
-  const missedCalls = parseFloat(prospectInfo.missedCallsMonth) || 0;
-  const dbSize = parseFloat(prospectInfo.customerDbSize) || 0;
+  const parseNum = (v: string) => parseFloat(v.replace(/[^0-9.\-]/g, "")) || 0;
+  const revenue = parseNum(prospectInfo.monthlyRevenue);
+  const avgJob = parseNum(prospectInfo.avgJobValue);
+  const missedCalls = parseNum(prospectInfo.missedCallsMonth);
+  const dbSize = parseNum(prospectInfo.customerDbSize);
 
   const gaps: Record<string, number> = {
     "voice-ai": missedCalls * avgJob * 12 * 0.3,

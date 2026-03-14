@@ -14,7 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      audits: {
+        Row: {
+          answers: Json
+          audit_date: string | null
+          avg_job_value: string | null
+          conversion_rate: string | null
+          created_at: string
+          customer_db_size: string | null
+          google_rating: string | null
+          id: string
+          missed_calls_month: string | null
+          monthly_leads: string | null
+          monthly_revenue: string | null
+          monthly_visitors: string | null
+          notes: Json
+          pre_call_notes: string | null
+          prospect_company: string
+          prospect_email: string | null
+          prospect_first_name: string
+          prospect_industry: string | null
+          prospect_last_name: string
+          prospect_phone: string | null
+          prospect_website: string | null
+          sent_to_ghl: boolean | null
+          total_score: number | null
+          updated_at: string
+        }
+        Insert: {
+          answers?: Json
+          audit_date?: string | null
+          avg_job_value?: string | null
+          conversion_rate?: string | null
+          created_at?: string
+          customer_db_size?: string | null
+          google_rating?: string | null
+          id?: string
+          missed_calls_month?: string | null
+          monthly_leads?: string | null
+          monthly_revenue?: string | null
+          monthly_visitors?: string | null
+          notes?: Json
+          pre_call_notes?: string | null
+          prospect_company?: string
+          prospect_email?: string | null
+          prospect_first_name?: string
+          prospect_industry?: string | null
+          prospect_last_name?: string
+          prospect_phone?: string | null
+          prospect_website?: string | null
+          sent_to_ghl?: boolean | null
+          total_score?: number | null
+          updated_at?: string
+        }
+        Update: {
+          answers?: Json
+          audit_date?: string | null
+          avg_job_value?: string | null
+          conversion_rate?: string | null
+          created_at?: string
+          customer_db_size?: string | null
+          google_rating?: string | null
+          id?: string
+          missed_calls_month?: string | null
+          monthly_leads?: string | null
+          monthly_revenue?: string | null
+          monthly_visitors?: string | null
+          notes?: Json
+          pre_call_notes?: string | null
+          prospect_company?: string
+          prospect_email?: string | null
+          prospect_first_name?: string
+          prospect_industry?: string | null
+          prospect_last_name?: string
+          prospect_phone?: string | null
+          prospect_website?: string | null
+          sent_to_ghl?: boolean | null
+          total_score?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

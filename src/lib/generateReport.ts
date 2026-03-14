@@ -55,8 +55,8 @@ export async function generateAuditPDF(data: ReportData) {
     ["Industry", prospectInfo.industry],
     ["Audit Date", prospectInfo.auditDate],
     ["Google Rating", prospectInfo.googleRating],
-    ["Monthly Revenue", prospectInfo.monthlyRevenue ? `$${prospectInfo.monthlyRevenue}` : "—"],
-    ["Avg Job Value", prospectInfo.avgJobValue ? `$${prospectInfo.avgJobValue}` : "—"],
+    ["Monthly Revenue", prospectInfo.monthlyRevenue || "—"],
+    ["Avg Job Value", prospectInfo.avgJobValue || "—"],
     ["Missed Calls/Mo", prospectInfo.missedCallsMonth || "—"],
     ["Customer DB Size", prospectInfo.customerDbSize || "—"],
   ].filter(([, v]) => v && v !== "—");

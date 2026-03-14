@@ -1,3 +1,4 @@
+import { useParams, useNavigate } from "react-router-dom";
 import { useAuditState } from "@/hooks/useAuditState";
 import AuditSidebar from "@/components/audit/AuditSidebar";
 import ProspectInfoTab from "@/components/audit/ProspectInfoTab";
@@ -6,15 +7,19 @@ import ResultsTab from "@/components/audit/ResultsTab";
 import { pillars } from "@/lib/auditData";
 import { generateAuditPDF } from "@/lib/generateReport";
 import { Button } from "@/components/ui/button";
-import { FileText, RotateCcw } from "lucide-react";
+import { FileText, RotateCcw, ArrowLeft, Loader2 } from "lucide-react";
 import { useState } from "react";
 
 const Index = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const {
     prospectInfo,
     answers,
     notes,
     activeTab,
+    saving,
+    lastSaved,
     setProspectInfo,
     setAnswer,
     setNote,
@@ -22,7 +27,7 @@ const Index = () => {
     getPillarScore,
     getTotalScore,
     resetAudit,
-  } = useAuditState();
+  } = useAuditState(id);
 
   const activePillar = pillars.find((p) => p.id === activeTab);
   const [generating, setGenerating] = useState(false);
@@ -36,6 +41,11 @@ const Index = () => {
     }
   };
 
+  const handleNewAudit = () => {
+    resetAudit();
+    navigate("/audit");
+  };
+
   return (
     <div className="flex min-h-screen">
       <AuditSidebar
@@ -47,9 +57,29 @@ const Index = () => {
       <div className="flex-1 flex flex-col">
         {/* Top bar */}
         <header className="h-12 border-b border-border flex items-center justify-between px-6 bg-card shrink-0">
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <span className="inline-block w-2 h-2 rounded-full bg-success" />
-            Saved
+          <div className="flex items-center gap-3">
+            <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="gap-1.5">
+              <ArrowLeft className="w-3.5 h-3.5" />
+              Dashboard
+            </Button>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              {saving ? (
+                <>
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                  Saving...
+                </>
+              ) : lastSaved ? (
+                <>
+                  <span className="inline-block w-2 h-2 rounded-full bg-success" />
+                  Saved
+                </>
+              ) : (
+                <>
+                  <span className="inline-block w-2 h-2 rounded-full bg-muted-foreground" />
+                  New
+                </>
+              )}
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <Button
@@ -65,7 +95,7 @@ const Index = () => {
             <Button
               variant="outline"
               size="sm"
-              onClick={resetAudit}
+              onClick={handleNewAudit}
               className="gap-1.5"
             >
               <RotateCcw className="w-3.5 h-3.5" />

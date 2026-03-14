@@ -32,12 +32,13 @@ export default function ResultsTab({ getPillarScore, getTotalScore, prospectInfo
   const maxTotal = pillars.reduce((s, p) => s + p.maxScore, 0);
   const avgScore = pillars.length > 0 ? Math.round(totalScore / pillars.length) : 0;
 
-  const revenue = parseFloat(prospectInfo.monthlyRevenue) || 0;
-  const avgJob = parseFloat(prospectInfo.avgJobValue) || 0;
-  const missedCalls = parseFloat(prospectInfo.missedCallsMonth) || 0;
-  const dbSize = parseFloat(prospectInfo.customerDbSize) || 0;
-  const visitors = parseFloat(prospectInfo.monthlyVisitors) || 0;
-  const convRate = parseFloat(prospectInfo.conversionRate) || 2.8;
+  const parseNum = (v: string) => parseFloat(v.replace(/[^0-9.\-]/g, "")) || 0;
+  const revenue = parseNum(prospectInfo.monthlyRevenue);
+  const avgJob = parseNum(prospectInfo.avgJobValue);
+  const missedCalls = parseNum(prospectInfo.missedCallsMonth);
+  const dbSize = parseNum(prospectInfo.customerDbSize);
+  const visitors = parseNum(prospectInfo.monthlyVisitors);
+  const convRate = parseNum(prospectInfo.conversionRate) || 2.8;
 
   // Revenue gap calculations
   const voiceGap = missedCalls * avgJob * 12 * 0.3; // 30% close rate on missed calls

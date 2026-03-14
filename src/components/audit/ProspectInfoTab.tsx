@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import CurrencyInput from "./CurrencyInput";
 
 type Props = {
   info: ProspectInfo;
@@ -125,52 +126,58 @@ export default function ProspectInfoTab({ info, onChange }: Props) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Field label="Estimated Monthly Revenue ($)">
-            <Input
+            <CurrencyInput
               placeholder="Ask: rough monthly revenue?"
               value={info.monthlyRevenue}
-              onChange={(e) => onChange({ monthlyRevenue: e.target.value })}
+              onChange={(v) => onChange({ monthlyRevenue: v })}
             />
           </Field>
           <Field label="Average Job / Transaction Value ($)">
-            <Input
+            <CurrencyInput
               placeholder="Ask: what's an average job worth?"
               value={info.avgJobValue}
-              onChange={(e) => onChange({ avgJobValue: e.target.value })}
+              onChange={(v) => onChange({ avgJobValue: v })}
             />
           </Field>
           <Field label="Customer Database Size">
-            <Input
+            <CurrencyInput
               placeholder="Pillar 4: how many past customers?"
               value={info.customerDbSize}
-              onChange={(e) => onChange({ customerDbSize: e.target.value })}
+              onChange={(v) => onChange({ customerDbSize: v })}
+              prefix=""
             />
           </Field>
           <Field label="Estimated Missed Calls / Month">
-            <Input
+            <CurrencyInput
               placeholder="Pillar 1: how many calls do you miss?"
               value={info.missedCallsMonth}
-              onChange={(e) => onChange({ missedCallsMonth: e.target.value })}
+              onChange={(v) => onChange({ missedCallsMonth: v })}
+              prefix=""
             />
           </Field>
           <Field label="Monthly Leads (all sources)">
-            <Input
+            <CurrencyInput
               placeholder="Pillar 2: how many leads/mo?"
               value={info.monthlyLeads}
-              onChange={(e) => onChange({ monthlyLeads: e.target.value })}
+              onChange={(v) => onChange({ monthlyLeads: v })}
+              prefix=""
             />
           </Field>
           <Field label="Monthly Website Visitors">
-            <Input
+            <CurrencyInput
               placeholder="Know your traffic?"
               value={info.monthlyVisitors}
-              onChange={(e) => onChange({ monthlyVisitors: e.target.value })}
+              onChange={(v) => onChange({ monthlyVisitors: v })}
+              prefix=""
             />
           </Field>
           <Field label="Current Website Conversion Rate (%)">
-            <Input
+            <CurrencyInput
               placeholder="2.8 is typical — use if they don't know"
               value={info.conversionRate}
-              onChange={(e) => onChange({ conversionRate: e.target.value })}
+              onChange={(v) => onChange({ conversionRate: v })}
+              prefix=""
+              suffix="%"
             />
           </Field>
         </div>

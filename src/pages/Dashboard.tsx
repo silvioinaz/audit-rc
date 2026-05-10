@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Plus, FileText, Trash2, RefreshCw, BarChart3 } from "lucide-react";
+import { Plus, FileText, Trash2, RefreshCw, BarChart3, LogOut } from "lucide-react";
 import { pillars, getScoreColor, getScoreLabel } from "@/lib/auditData";
 import {
   AlertDialog,
@@ -65,10 +65,24 @@ export default function Dashboard() {
             <h1 className="text-lg font-bold text-primary tracking-wide">RevenueCapture.ai</h1>
             <p className="text-xs text-muted-foreground">4-Pillar AI Lead Audit Dashboard</p>
           </div>
-          <Button onClick={() => navigate("/audit")} className="gap-2">
-            <Plus className="w-4 h-4" />
-            New Audit
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button onClick={() => navigate("/audit")} className="gap-2">
+              <Plus className="w-4 h-4" />
+              New Audit
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={async () => {
+                await supabase.auth.signOut();
+                navigate("/auth");
+              }}
+              className="gap-1.5"
+            >
+              <LogOut className="w-4 h-4" />
+              Sign out
+            </Button>
+          </div>
         </div>
       </header>
 

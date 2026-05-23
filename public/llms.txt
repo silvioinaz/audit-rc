@@ -1,0 +1,9 @@
+# RevenueCapture.ai
+
+> A 4-Pillar AI Lead Audit tool that helps service businesses identify revenue leaks across Voice AI, Conversational AI, Reputation Management, and Database Reactivation.
+
+RevenueCapture.ai is an internal audit dashboard used by consultants to score a prospect's lead-capture process and generate a branded PDF report with revenue-gap calculations.
+
+## Pages
+
+- [Home](/): AI Lead Audit dashboard overview.

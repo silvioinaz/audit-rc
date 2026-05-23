@@ -35,7 +35,7 @@ export default function Auth() {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="w-full max-w-sm bg-card border border-border rounded-lg p-6 space-y-5">
         <div className="space-y-1">
-          <h1 className="text-lg font-bold text-primary tracking-wide">RevenueCapture.ai</h1>
+          <h1 className="text-lg font-bold text-primary tracking-wide">RevenueCapture.ai — Sign In</h1>
           <p className="text-xs text-muted-foreground">Sign in to access the audit dashboard</p>
         </div>
         <form onSubmit={handleSignIn} className="space-y-3">

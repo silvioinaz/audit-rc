@@ -1,3 +1,4 @@
+import { useId, cloneElement, isValidElement, ReactElement } from "react";
 import { ProspectInfo, industries } from "@/lib/auditData";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -73,7 +74,7 @@ export default function ProspectInfoTab({ info, onChange }: Props) {
           </Field>
           <Field label="Industry">
             <Select value={info.industry} onValueChange={(v) => onChange({ industry: v })}>
-              <SelectTrigger>
+              <SelectTrigger aria-label="Industry">
                 <SelectValue placeholder="Select industry..." />
               </SelectTrigger>
               <SelectContent>
@@ -187,12 +188,19 @@ export default function ProspectInfoTab({ info, onChange }: Props) {
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  const id = useId();
+  const child = isValidElement(children)
+    ? cloneElement(children as ReactElement<{ id?: string }>, { id })
+    : children;
   return (
     <div className="space-y-1.5">
-      <Label className="text-xs font-semibold tracking-wide uppercase text-muted-foreground">
+      <Label
+        htmlFor={id}
+        className="text-xs font-semibold tracking-wide uppercase text-muted-foreground"
+      >
         {label}
       </Label>
-      {children}
+      {child}
     </div>
   );
 }

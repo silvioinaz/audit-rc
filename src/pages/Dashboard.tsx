@@ -62,7 +62,7 @@ export default function Dashboard() {
       <header className="border-b border-border bg-card">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div>
-            <h1 className="text-lg font-bold text-primary tracking-wide">RevenueCapture.ai</h1>
+            <h1 className="text-lg font-bold text-primary tracking-wide">RevenueCapture.ai — AI Lead Audit Dashboard</h1>
             <p className="text-xs text-muted-foreground">4-Pillar AI Lead Audit Dashboard</p>
           </div>
           <div className="flex items-center gap-2">
@@ -149,6 +149,7 @@ export default function Dashboard() {
                     <Button
                       variant="ghost"
                       size="sm"
+                      aria-label={`Open audit for ${name}`}
                       onClick={(e) => {
                         e.stopPropagation();
                         navigate(`/audit/${audit.id}`);
@@ -161,6 +162,7 @@ export default function Dashboard() {
                         <Button
                           variant="ghost"
                           size="sm"
+                          aria-label={`Delete audit for ${name}`}
                           onClick={(e) => e.stopPropagation()}
                           className="text-destructive hover:text-destructive"
                         >

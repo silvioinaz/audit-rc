@@ -1,4 +1,7 @@
-# Welcome to your Lovable project
+# Audit RC — Revenue Capture Audit Tool
+
+<!-- github-sync-test: 2026-05-23 -->
+
 
 ## Project info
 
